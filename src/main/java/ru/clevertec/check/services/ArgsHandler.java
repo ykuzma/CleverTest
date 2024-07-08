@@ -1,6 +1,8 @@
 package main.java.ru.clevertec.check.services;
 
+import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.OrderData;
+import main.java.ru.clevertec.check.models.OrderDataBuilder;
 
 public class ArgsHandler implements ArgParser<OrderData>, ValidationService<String[]> {
     private final String ID_TEMPLATE = "\\d{1,19}-\\d{1,10}";
@@ -33,10 +35,10 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
     @Override
     public OrderData parse(String[] args) {
         if(args.length == 0 || validate(args))
-            throw new NoParametersException("Bad request");
+            throw new BadParametersException();
 
         String[] tempArr;
-        //todo interface
+
         OrderDataBuilder builder = new OrderDataBuilder();
         for (String arg : args) {
 
