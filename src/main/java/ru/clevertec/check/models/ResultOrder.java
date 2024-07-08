@@ -11,13 +11,13 @@ public class ResultOrder {
 
     private final LocalDate date;
     private final LocalTime time;
-    private final List<OrderLine> line;
+    private final List<OrderLine> lines;
     private final TotalLine totalLine;
 
-    public ResultOrder(LocalDate date, LocalTime time, List<OrderLine> line, TotalLine totalLine) {
+    public ResultOrder(LocalDate date, LocalTime time, List<OrderLine> lines, TotalLine totalLine) {
         this.date = date;
         this.time = time;
-        this.line = line;
+        this.lines = lines;
         this.totalLine = totalLine;
     }
 
@@ -29,8 +29,8 @@ public class ResultOrder {
         return time;
     }
 
-    public List<OrderLine> getLine() {
-        return line;
+    public List<OrderLine> getLines() {
+        return lines;
     }
 
     public TotalLine getTotalLine() {
@@ -44,12 +44,12 @@ public class ResultOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResultOrder that = (ResultOrder) o;
-        return Objects.equals(date, that.date) && Objects.equals(time, that.time) && Objects.equals(line, that.line) && Objects.equals(totalLine, that.totalLine);
+        return Objects.equals(date, that.date) && Objects.equals(time, that.time) && Objects.equals(lines, that.lines) && Objects.equals(totalLine, that.totalLine);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, time, line, totalLine);
+        return Objects.hash(date, time, lines, totalLine);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ResultOrder {
         return "ResultOrder{" +
                 "date=" + date +
                 ", time=" + time +
-                ", line=" + line +
+                ", line=" + lines +
                 ", totalLine=" + totalLine +
                 '}';
     }
@@ -72,7 +72,7 @@ public class ResultOrder {
         new PrintWriter(fos).print(this);
     }
 
-    public class TotalLine {
+    public static class TotalLine {
         private final double totalPrice;
         private final double totalDiscount;
         private final double totalWithDiscount;
