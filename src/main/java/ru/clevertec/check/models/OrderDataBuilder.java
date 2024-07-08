@@ -22,7 +22,6 @@ public class OrderDataBuilder {
     }
 
     public OrderDataBuilder setDiscountCardNumber(int discountCardNumber) {
-        if(discountCardNumber == 0) throw new RuntimeException();
 
         this.discountCardNumber = discountCardNumber;
         return this;
@@ -34,8 +33,7 @@ public class OrderDataBuilder {
     }
 
     public OrderData build() {
-        if(discountCardNumber == null) return new OrderData(product, debitCardAmount);
 
-        return new OrderDataWithDiscount(product, debitCardAmount, discountCardNumber);
+        return new OrderData(product, debitCardAmount, discountCardNumber);
     }
 }
