@@ -1,14 +1,12 @@
 package main.java.ru.clevertec.check.configuration;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
+public class ConfigurationApp {
+    private static int wholesale = 10;
 
-public class ConfigurationApp implements Closeable {
 
     private String pathProduct = "./src/main/resources/products.csv";
-    private String pathDiscountCard;
-    private InputStream inputStream;
+    private String pathDiscountCard = "./src/main/resources/discountCards.csv";
+
 
     private static ConfigurationApp configurationApp;
 
@@ -19,10 +17,19 @@ public class ConfigurationApp implements Closeable {
         return configurationApp;
     }
 
-    @Override
-    public void close() throws IOException {
 
-    }
 
     private ConfigurationApp(){}
+
+    public static int getWholesale() {
+        return wholesale;
+    }
+
+    public String getPathProduct() {
+        return pathProduct;
+    }
+
+    public String getPathDiscountCard() {
+        return pathDiscountCard;
+    }
 }
