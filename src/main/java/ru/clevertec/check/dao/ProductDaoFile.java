@@ -10,13 +10,14 @@ import java.util.stream.Collectors;
 
 public class ProductDaoFile implements ProductDao{
 
+    private final ConfigurationApp config = ConfigurationApp.getInstance();
     private String[] tempArr;
 
     @Override
     public Set<Product> findProducts(Set<Long> setID) throws IOException {
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream(ConfigurationApp.getInstance().getPathProduct())))) {
+                new FileInputStream(config.getPathProduct())))) {
 
             return br.lines()
                     .filter(line -> setID.contains(findIdInLine(line)))
@@ -26,12 +27,12 @@ public class ProductDaoFile implements ProductDao{
     }
 
     private Long findIdInLine(String line){
-        tempArr =  line.split(";");
+        tempArr =  line.split(config.getDelimiter());
         return Long.parseLong(tempArr[0]);
     }
 
     private Product createProduct(String line) {
-        tempArr =  line.split(";");
+        tempArr =  line.split(config.getDelimiter());
         boolean wholesale = tempArr[4].equals("+");
         Product product = new Product();
         product.setId(Long.parseLong(tempArr[0]));

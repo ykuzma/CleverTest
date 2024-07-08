@@ -1,12 +1,14 @@
 package main.java.ru.clevertec.check.configuration;
 
+import java.io.PrintStream;
+
 public class ConfigurationApp {
     private static int wholesale = 10;
 
 
     private String pathProduct = "./src/main/resources/products.csv";
     private String pathDiscountCard = "./src/main/resources/discountCards.csv";
-
+    private String delimiter = ";";
 
     private static ConfigurationApp configurationApp;
 
@@ -27,6 +29,10 @@ public class ConfigurationApp {
 
     public String getPathProduct() {
         return pathProduct;
+    }
+
+    public String getDelimiter() {
+        return delimiter;
     }
 
     public String getPathDiscountCard() {
