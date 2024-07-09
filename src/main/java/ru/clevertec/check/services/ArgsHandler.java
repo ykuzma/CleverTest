@@ -1,10 +1,12 @@
 package main.java.ru.clevertec.check.services;
 
+import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.OrderData;
 import main.java.ru.clevertec.check.models.OrderDataBuilder;
 
 public class ArgsHandler implements ArgParser<OrderData>, ValidationService<String[]> {
+
     private final String ID_TEMPLATE = "\\d{1,19}-\\d{1,10}";
     private final String DISCOUNT_TEMPLATE = "discountCard=\\d{4}";
     private final String DEBIT_CARD_TEMPLATE = "balanceDebitCard=-{0,1}\\d{1,19}(\\.\\d{2}){0,1}";
@@ -34,8 +36,10 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
     @Override
     public OrderData parse(String[] args) {
+        Logger.info("method  parse start");
         if(args.length == 0 || !validate(args))
-            throw new BadParametersException("Bad request");
+        { Logger.error(String.format("No find Params, argsSize=%s", args.length));
+            throw new BadParametersException("Bad request");}
 
         String[] tempArr;
 
@@ -56,6 +60,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
                 builder.setDiscountCardNumber(Integer.parseInt(tempArr[1]));
             }
         }
+        Logger.info("validate finish successful");
         return builder.build();
     }
 }
