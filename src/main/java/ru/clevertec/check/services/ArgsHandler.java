@@ -18,11 +18,11 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
         for (String s: params) {
             if(s.matches(ID_TEMPLATE)) {
-                bank++;
+                id++;
             } else if (s.matches(DISCOUNT_TEMPLATE)) {
                 discount++;
             }else if(s.matches(DEBIT_CARD_TEMPLATE)){
-                id++;
+                bank++;
             }else {
                 return false;
             }
@@ -34,7 +34,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
     @Override
     public OrderData parse(String[] args) {
-        if(args.length == 0 || validate(args))
+        if(args.length == 0 || !validate(args))
             throw new BadParametersException();
 
         String[] tempArr;

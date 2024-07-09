@@ -2,6 +2,7 @@ package main.java.ru.clevertec.check.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class ResultOrderWithDiscountBuilder extends ResultOrderBuilder{
     private DiscountCard discountCard;
@@ -12,8 +13,15 @@ public class ResultOrderWithDiscountBuilder extends ResultOrderBuilder{
                 getLines(),  createTotalLine(), getDiscountCard());
     }
 
-    public void setDiscountCard(DiscountCard discountCard) {
+    public ResultOrderWithDiscountBuilder setDiscountCard(DiscountCard discountCard) {
         this.discountCard = discountCard;
+        return this;
+    }
+
+    @Override
+    public ResultOrderWithDiscountBuilder setLine(List<OrderLine> lines) {
+        super.setLine(lines);
+        return this;
     }
 
     public DiscountCard getDiscountCard() {

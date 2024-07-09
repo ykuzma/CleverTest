@@ -14,6 +14,7 @@ public class CheckRunner {
 
         ArgParser<OrderData> argParser = new ArgsHandler();
         OrderData orderData = argParser.parse(args);
+        System.out.println(orderData.getProduct());
         OrderLineService orderLineService = new OrderLineService(new ProductService(new ProductDaoFile()));
         DiscountCardService discountCardService = new DiscountCardService(new DiscountCardFile());
         ResultOrderService orderService = new ResultOrderService(orderLineService, discountCardService);

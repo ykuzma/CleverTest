@@ -11,7 +11,7 @@ public class DiscountCardFile implements DiscountCardDao{
     ConfigurationApp config = ConfigurationApp.getInstance();
     @Override
     public Optional<DiscountCard> findByNumber(int number) {
-        System.out.println(number);
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(config.getPathDiscountCard())))) {
 
@@ -25,7 +25,6 @@ public class DiscountCardFile implements DiscountCardDao{
 
     private Integer findNumberInLine(String line){
         String[] temp =  line.split(config.getDelimiter());
-        System.out.println(temp[1]);
         return Integer.parseInt(temp[1]);
     }
     private DiscountCard createDiscount(String line){

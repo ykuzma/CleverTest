@@ -1,9 +1,6 @@
 package main.java.ru.clevertec.check.services;
 
-import main.java.ru.clevertec.check.models.DiscountCard;
-import main.java.ru.clevertec.check.models.OrderData;
-import main.java.ru.clevertec.check.models.OrderLine;
-import main.java.ru.clevertec.check.models.ResultOrder;
+import main.java.ru.clevertec.check.models.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -22,6 +19,10 @@ public class ResultOrderService {
         List<OrderLine> lineList = orderLine.createOrderLines(orderData.getProduct(),
                 discountCard.getDiscount_amount());
 
-        return null;
+        return new ResultOrderWithDiscountBuilder()
+                .setLine(lineList)
+                .setDiscountCard(discountCard)
+                .build();
+
     }
 }
