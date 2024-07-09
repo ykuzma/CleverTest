@@ -7,6 +7,7 @@ import main.java.ru.clevertec.check.models.ResultOrder;
 import main.java.ru.clevertec.check.services.*;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class CheckRunner {
     public static void main(String[] args) throws FileNotFoundException {
@@ -19,7 +20,10 @@ public class CheckRunner {
         DiscountCardService discountCardService = new DiscountCardService(new DiscountCardFile());
         ResultOrderService orderService = new ResultOrderService(orderLineService, discountCardService);
         ResultOrder resultOrder = orderService.getResult(orderData);
-        System.out.println(resultOrder.toString());
+        resultOrder.save(new FileOutputStream("result.csv"));
+        resultOrder.print();
+
+
 
     }
 

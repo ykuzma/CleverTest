@@ -4,7 +4,9 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ResultOrder {
@@ -54,23 +56,72 @@ public class ResultOrder {
 
     @Override
     public String toString() {
-        return "ResultOrder{" +
-                "date=" + date +
-                ", time=" + time +
-                ", line=" + lines +
-                ", totalLine=" + totalLine +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        sb.append("Date;Time")
+                .append("\n")
+                .append(String.format("%s;%s", dateFormatter.format(date), timeFormatter.format(time)))
+                .append("\n\n")
+                .append("QTY;DESCRIPTION;PRICE;DISCOUNT;TOTAL").append("\n");
+
+        lines.forEach((line) ->{
+            sb.append(String.format("%d;%s;%.2f$;%.2f$;%.2f$\n",
+                    line.getQty(), line.getProductDescription(),
+                    line.getPrice(), line.getDiscount(), line.getTotalPrice()));
+        });
+
+        sb.append("\nDISCOUNT CARD;DISCOUNT PERCENTAGE\n")
+                .append(String.format("%d;%d%s\n", 1111, 2, "%"))
+                .append("\nTOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
+                .append(String.format("%.2f$;%.2f$;%.2f$",
+                        totalLine.getTotalPrice(),
+                        totalLine.getTotalDiscount(),
+                        totalLine.getTotalWithDiscount()));
+
+
+
+        return sb.toString();
     }
 
 
     public void print() {
-        System.out.println(this);
+        StringBuilder sb = new StringBuilder();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        sb.append("Date;Time")
+                .append("\n")
+                .append(String.format("%s;%s", dateFormatter.format(date), timeFormatter.format(time)))
+                .append("\n\n")
+                .append("QTY;DESCRIPTION;PRICE;DISCOUNT;TOTAL").append("\n");
+
+        lines.stream().forEach((line) ->{
+            sb.append(String.format(Locale.ROOT, "%d;%s;%.2f$;%.2f$;%.2f$\n",
+                    line.getQty(), line.getProductDescription(),
+                    line.getPrice(), line.getDiscount(), line.getTotalPrice()));
+        });
+
+        sb.append("\nDISCOUNT CARD;DISCOUNT PERCENTAGE\n")
+                .append(String.format("%d;%d%s\n", 1111, 2, "%"))
+                .append("\nTOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
+                        .append(String.format(Locale.ROOT,"%.2f$;%.2f$;%.2f$",
+                                totalLine.getTotalPrice(),
+                                totalLine.getTotalDiscount(),
+                                totalLine.getTotalWithDiscount()));
+
+
+        System.out.println(sb);
     }
 
 
     public void save(FileOutputStream fos) {
-        new PrintWriter(fos).print(this);
+
+      PrintWriter pr = new PrintWriter(fos);
+      pr.print(this);
+      pr.flush();
     }
+
+
 
     public static class TotalLine {
         private final double totalPrice;

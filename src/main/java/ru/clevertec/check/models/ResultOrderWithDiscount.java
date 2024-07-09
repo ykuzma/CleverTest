@@ -35,8 +35,6 @@ public class ResultOrderWithDiscount extends ResultOrder{
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + "ResultOrderWithDiscount{" +
-                "discountCard=" + discountCard +
-                '}';
+        return super.toString();
     }
 }
