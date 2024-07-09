@@ -6,8 +6,8 @@ public class ConfigurationApp {
     private static int wholesale = 10;
 
 
-    private String pathProduct = "./src/main/resources/products.csv";
-    private String pathDiscountCard = "./src/main/resources/discountCards.csv";
+    private String pathProduct = "./products.csv";
+    private String pathDiscountCard = "./discountCards.csv";
     private String delimiter = ";";
 
     private static ConfigurationApp configurationApp;

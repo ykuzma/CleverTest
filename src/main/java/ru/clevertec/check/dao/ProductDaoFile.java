@@ -19,7 +19,7 @@ public class ProductDaoFile implements ProductDao{
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(config.getPathProduct())))) {
 
-            return br.lines()
+            return br.lines().skip(1)
                     .filter(line -> setID.contains(findIdInLine(line)))
                     .map(this::createProduct)
                     .collect(Collectors.toSet());

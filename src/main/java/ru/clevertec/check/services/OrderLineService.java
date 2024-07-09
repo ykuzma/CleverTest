@@ -1,7 +1,6 @@
 package main.java.ru.clevertec.check.services;
 
 import main.java.ru.clevertec.check.configuration.ConfigurationApp;
-import main.java.ru.clevertec.check.models.DiscountCard;
 import main.java.ru.clevertec.check.models.OrderLine;
 import main.java.ru.clevertec.check.models.Product;
 
@@ -19,11 +18,11 @@ public class OrderLineService {
     }
 
     public List<OrderLine> createOrderLines (Map<Long,
-            Integer> productIdAndQuantity, DiscountCard discountCard) throws FileNotFoundException {
+            Integer> productIdAndQuantity, int discount) throws FileNotFoundException {
         Set<Product> products = productService.findProducts(productIdAndQuantity.keySet());
 
         return products.stream()
-                .map(p -> createOrderLine(p, discountCard.getDiscount_amount(), productIdAndQuantity.get(p.getId())))
+                .map(p -> createOrderLine(p, discount, productIdAndQuantity.get(p.getId())))
                 .collect(Collectors.toList());
     }
 

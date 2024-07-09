@@ -11,15 +11,22 @@ public class DiscountCardFile implements DiscountCardDao{
     ConfigurationApp config = ConfigurationApp.getInstance();
     @Override
     public Optional<DiscountCard> findByNumber(int number) {
+        System.out.println(number);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(config.getPathDiscountCard())))) {
 
-            return br.lines()
-                    .filter(line -> Integer.parseInt(line.split(config.getDelimiter())[1]) == number)
+            return br.lines().skip(1)
+                    .filter(line -> findNumberInLine(line) == number)
                     .map(this::createDiscount).findAny();
         }catch (IOException e) {
             throw new RuntimeException();
         }
+    }
+
+    private Integer findNumberInLine(String line){
+        String[] temp =  line.split(config.getDelimiter());
+        System.out.println(temp[1]);
+        return Integer.parseInt(temp[1]);
     }
     private DiscountCard createDiscount(String line){
         String[] temp = line.split(config.getDelimiter());
