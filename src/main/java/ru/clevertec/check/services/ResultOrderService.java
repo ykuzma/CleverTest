@@ -18,7 +18,7 @@ public class ResultOrderService {
     }
 
     public ResultOrder getResult(OrderData orderData) throws FileNotFoundException {
-        DiscountCard discountCard = new DiscountCard(1, 5555);
+        DiscountCard discountCard = new DiscountCard(5555);
         List<OrderLine> lineList = orderLine.createOrderLines(orderData.getProduct(), discountCard);
 
         return null;

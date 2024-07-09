@@ -7,8 +7,10 @@ import main.java.ru.clevertec.check.services.ArgsHandler;
 import main.java.ru.clevertec.check.services.OrderLineService;
 import main.java.ru.clevertec.check.services.ResultOrderService;
 
+import java.io.FileNotFoundException;
+
 public class CheckRunner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
 
         ArgParser<OrderData> argParser = new ArgsHandler();

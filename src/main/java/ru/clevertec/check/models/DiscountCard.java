@@ -5,17 +5,18 @@ import java.util.Objects;
 public class DiscountCard {
     private long id;
     private final int number;
-    private int discount_amount;
+    private int discount_amount = 2;
 
-    public DiscountCard(long id, int number) {
-        this.id = id;
-        this.number = number;
-    }
+
 
     public DiscountCard(long id, int number, int discount_amount) {
         this.id = id;
         this.number = number;
         this.discount_amount = discount_amount;
+    }
+
+    public DiscountCard(int number) {
+        this.number = number;
     }
 
     public long getId() {
