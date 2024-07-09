@@ -35,7 +35,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
     @Override
     public OrderData parse(String[] args) {
         if(args.length == 0 || !validate(args))
-            throw new BadParametersException();
+            throw new BadParametersException("Bad request");
 
         String[] tempArr;
 

@@ -13,16 +13,19 @@ public class CheckRunner {
     public static void main(String[] args) throws FileNotFoundException {
 
 
-        ArgParser<OrderData> argParser = new ArgsHandler();
-        OrderData orderData = argParser.parse(args);
-        System.out.println(orderData.getProduct());
-        OrderLineService orderLineService = new OrderLineService(new ProductService(new ProductDaoFile()));
-        DiscountCardService discountCardService = new DiscountCardService(new DiscountCardFile());
-        ResultOrderService orderService = new ResultOrderService(orderLineService, discountCardService);
-        ResultOrder resultOrder = orderService.getResult(orderData);
-        resultOrder.save(new FileOutputStream("result.csv"));
-        resultOrder.print();
+        try {
+            ArgParser<OrderData> argParser = new ArgsHandler();
+            OrderData orderData = argParser.parse(args);
 
+            OrderLineService orderLineService = new OrderLineService(new ProductService(new ProductDaoFile()));
+            DiscountCardService discountCardService = new DiscountCardService(new DiscountCardFile());
+            ResultOrderService orderService = new ResultOrderService(orderLineService, discountCardService);
+            ResultOrder resultOrder = orderService.getResult(orderData);
+            resultOrder.save(new FileOutputStream("result.csv"));
+            resultOrder.print();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
