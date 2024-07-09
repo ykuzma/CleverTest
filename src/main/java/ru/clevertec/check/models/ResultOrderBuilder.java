@@ -17,7 +17,7 @@ public class ResultOrderBuilder {
         double totalDiscount = 0;
         for (OrderLine line:lines) {
             totalDiscount += line.getDiscount();
-            totalPrice += line.getPrice();
+            totalPrice += line.getTotalPrice();
         }
         double totalWithDiscount = totalPrice - totalDiscount;
         return new ResultOrder.TotalLine(totalPrice, totalDiscount, totalWithDiscount);
