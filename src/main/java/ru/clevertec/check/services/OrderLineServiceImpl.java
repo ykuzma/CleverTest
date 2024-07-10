@@ -27,7 +27,7 @@ public class OrderLineServiceImpl implements OrderLineService {
 
 
     public OrderLine createOrderLine(Product product, int discountAmount, int productQuantity) {
-        double wholesaleDiscount = ConfigurationApp.getWholesale();
+        double wholesaleDiscount = ConfigurationApp.getInstance().getWholesale();
         double totalPrice = product.getPrice() * productQuantity;
         double discount;
         if(product.isWholesale() && productQuantity > 4) {

@@ -1,5 +1,6 @@
 package main.java.ru.clevertec.check.services;
 
+import main.java.ru.clevertec.check.configuration.ConfigurationApp;
 import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.OrderData;
@@ -70,9 +71,15 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
                 tempArr = arg.split("=");
                 builder.setDebitCardAmount(Double.parseDouble(tempArr[1]));
 
-            }else {
+            } else if(arg.matches(DISCOUNT_TEMPLATE)){
                 tempArr = arg.split("=");
                 builder.setDiscountCardNumber(Integer.parseInt(tempArr[1]));
+            } else if (arg.matches(SAVE_TO_FILE)) {
+                tempArr = arg.split("=");
+                ConfigurationApp.getInstance().setSaveTo(tempArr[1]);
+            }else {
+                tempArr = arg.split("=");
+                ConfigurationApp.getInstance().setPathProduct(tempArr[1]);
             }
         }
         Logger.info("validate finish successful");

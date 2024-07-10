@@ -1,14 +1,11 @@
 package main.java.ru.clevertec.check.configuration;
 
-import java.io.PrintStream;
-
 public class ConfigurationApp {
-    private static int wholesale = 10;
-
-
-    private String pathProduct = "./src/main/resourses/products.csv";
-    private String pathDiscountCard = "./src/main/resourses/discountCards.csv";
+    private int wholesale = 10;
+    private String pathProduct = "./src/main/resources/products.csv";
+    private String pathDiscountCard = "./src/main/resources/discountCards.csv";
     private String delimiter = ";";
+    private String saveTo = "./result.csv";
 
     private static ConfigurationApp configurationApp;
 
@@ -19,11 +16,33 @@ public class ConfigurationApp {
         return configurationApp;
     }
 
+    public void setPathProduct(String pathProduct) {
+        this.pathProduct = pathProduct;
+    }
 
+    public void setSaveTo(String saveTo) {
+        this.saveTo = saveTo;
+    }
+
+    public void setWholesale(int wholesale) {
+        this.wholesale = wholesale;
+    }
+
+    public void setPathDiscountCard(String pathDiscountCard) {
+        this.pathDiscountCard = pathDiscountCard;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    public String getSaveTo() {
+        return saveTo;
+    }
 
     private ConfigurationApp(){}
 
-    public static int getWholesale() {
+    public  int getWholesale() {
         return wholesale;
     }
 
@@ -38,4 +57,6 @@ public class ConfigurationApp {
     public String getPathDiscountCard() {
         return pathDiscountCard;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package main.java.ru.clevertec.check;
 
+import main.java.ru.clevertec.check.configuration.ConfigurationApp;
 import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.exception.ExceptionHandler;
@@ -15,21 +16,21 @@ import java.io.FileOutputStream;
 
 public class CheckRunner {
     public static void main(String[] args) throws FileNotFoundException {
-
+        Logger.info("Application start");
+        ConfigurationApp config = ConfigurationApp.getInstance();
 
         try {
-            Logger.info("Application start");
             ArgParser<OrderData> argParser = new ArgsHandler();
             OrderData orderData = argParser.parse(args);
             ResultOrderService orderService = ResultOrderServiceFactory.getService(orderData);
             Logger.info(String.format("ResultOrderService = %s", orderService.getClass().getSimpleName()));
-            ResultHandler resultOrder = orderService.getResult(orderData);
-            resultOrder.save(new FileOutputStream("result.csv"));
-            resultOrder.print();
+            ResultHandler resultHandler = orderService.getResult(orderData);
+            resultHandler.save(new FileOutputStream(config.getSaveTo()));
+            resultHandler.print();
             Logger.info("Application finish");
         } catch (ApplicationException e) {
             ResultHandler resultHandler = new ExceptionHandler(e.getMessage());
-            resultHandler.save(new FileOutputStream("result.csv"));
+            resultHandler.save(new FileOutputStream(config.getSaveTo()));
             resultHandler.print();
             e.printStackTrace();
         }

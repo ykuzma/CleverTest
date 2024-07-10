@@ -1,6 +1,7 @@
 package main.java.ru.clevertec.check.dao;
 
 import main.java.ru.clevertec.check.configuration.ConfigurationApp;
+import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.Product;
@@ -52,6 +53,7 @@ public class ProductDaoFile implements ProductDao{
 
             return product.orElseThrow(() -> new BadParametersException("BAD REQUEST"));
         }catch (IOException e) {
+            Logger.error(String.format("IOException - class = %s", e.getClass().getSimpleName()));
             throw new ApplicationException();
         }
 
