@@ -12,6 +12,11 @@ public class ConfigurationApp {
     private String delimiter = ";";
     private String saveTo = "./result.csv";
 
+    private String dsURL;
+    private String dsPassword;
+    private String dsUsername;
+
+
     private static ConfigurationApp configurationApp;
 
     public static ConfigurationApp getInstance() {
@@ -35,6 +40,18 @@ public class ConfigurationApp {
         return null;
     }
 
+    public void setDsURL(String dsURL) {
+        this.dsURL = dsURL;
+    }
+
+    public void setDsPassword(String dsPassword) {
+        this.dsPassword = dsPassword;
+    }
+
+    public void setDsUsername(String dsUsername) {
+        this.dsUsername = dsUsername;
+    }
+
     public void setPathProduct(String pathProduct) {
         this.pathProduct = pathProduct;
     }
@@ -53,6 +70,18 @@ public class ConfigurationApp {
 
     public void setDelimiter(String delimiter) {
         this.delimiter = delimiter;
+    }
+
+    public String getDsURL() {
+        return dsURL;
+    }
+
+    public String getDsPassword() {
+        return dsPassword;
+    }
+
+    public String getDsUsername() {
+        return dsUsername;
     }
 
     public String getSaveTo() {
