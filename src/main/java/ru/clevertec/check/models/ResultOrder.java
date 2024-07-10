@@ -1,6 +1,7 @@
 package main.java.ru.clevertec.check.models;
 
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
-public class ResultOrder {
+public class ResultOrder implements ResultHandler{
 
     private final LocalDate date;
     private final LocalTime time;
@@ -84,12 +85,13 @@ public class ResultOrder {
     }
 
 
+    @Override
     public void print() {
         System.out.println(this);
     }
 
-
-    public void save(FileOutputStream fos) {
+    @Override
+    public void save(OutputStream fos) {
 
       PrintWriter pr = new PrintWriter(fos);
       pr.print(this);
