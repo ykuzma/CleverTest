@@ -21,7 +21,7 @@ public class CheckRunner {
 
 
 
-            OrderLineServiceImpl orderLineService = new OrderLineServiceImpl(new ProductService(new ProductDaoFile()));
+            OrderLineServiceImpl orderLineService = new OrderLineServiceImpl(new ProductServiceImpl(new ProductDaoFile()));
             DiscountCardServiceImpl discountCardService = new DiscountCardServiceImpl(new DiscountCardFile());
             ResultOrderServiceImplBase orderService = new ResultOrderServiceImplBase(orderLineService, discountCardService);
             ResultOrder resultOrder = orderService.getResult(orderData);

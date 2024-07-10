@@ -1,11 +1,14 @@
 package main.java.ru.clevertec.check.dao;
 
 import main.java.ru.clevertec.check.configuration.ConfigurationApp;
+import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.models.DiscountCard;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class DiscountCardFile implements DiscountCardDao{
     ConfigurationApp config = ConfigurationApp.getInstance();
@@ -19,7 +22,7 @@ public class DiscountCardFile implements DiscountCardDao{
                     .filter(line -> findNumberInLine(line) == number)
                     .map(this::createDiscount).findAny();
         }catch (IOException e) {
-            throw new RuntimeException();
+            throw new ApplicationException();
         }
     }
 
