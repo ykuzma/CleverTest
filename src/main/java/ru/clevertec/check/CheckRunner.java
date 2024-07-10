@@ -22,7 +22,7 @@ public class CheckRunner {
 
 
             OrderLineService orderLineService = new OrderLineService(new ProductService(new ProductDaoFile()));
-            DiscountCardService discountCardService = new DiscountCardService(new DiscountCardFile());
+            DiscountCardServiceImpl discountCardService = new DiscountCardServiceImpl(new DiscountCardFile());
             ResultOrderServiceImplBase orderService = new ResultOrderServiceImplBase(orderLineService, discountCardService);
             ResultOrder resultOrder = orderService.getResult(orderData);
             resultOrder.save(new FileOutputStream("result.csv"));
