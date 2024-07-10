@@ -6,3 +6,5 @@ out
 
 ./*.txt
 result.csv
+# Ignore Gradle build output directory
+build
