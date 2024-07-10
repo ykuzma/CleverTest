@@ -9,6 +9,9 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
     private final String ID_TEMPLATE = "\\d{1,19}-\\d{1,10}";
     private final String DISCOUNT_TEMPLATE = "discountCard=\\d{4}";
     private final String DEBIT_CARD_TEMPLATE = "balanceDebitCard=-{0,1}\\d{1,19}(\\.\\d{2}){0,1}";
+    private final String PATH_TO_FILE = "pathToFile=.+";
+    private final String SAVE_TO_FILE = "saveToFile=.+";
+
 
 
     @Override
@@ -16,6 +19,9 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
         int bank = 0;
         int discount = 0;
         int id = 0;
+        int path = 0;
+        int save = 0;
+        
 
         for (String s: params) {
             if(s.matches(ID_TEMPLATE)) {
@@ -24,21 +30,26 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
                 discount++;
             }else if(s.matches(DEBIT_CARD_TEMPLATE)){
                 bank++;
-            }else {
+            } else if (s.matches(PATH_TO_FILE)) {
+                path++;
+
+            } else if (s.matches(SAVE_TO_FILE)) {
+                save++;
+            } else {
                 Logger.error("Bad param = " + s);
                 return false;
             }
-            if(bank > 1 || discount > 1) return false;
+            if(bank > 1 || discount > 1 || path > 1 || save > 1) return false;
         }
 
-        return id != 0 && bank != 0;
+        return id != 0 && bank != 0 && save != 0 && path != 0;
     }
 
     @Override
     public OrderData parse(String[] args) {
         Logger.info("method  parse start");
         if(args.length == 0){
-            Logger.error(String.format("No find Params, argsSize=%s", args.length));
+            Logger.error("No find Params");
             throw new BadParametersException("BAD REQUEST");
         }else if(!validate(args)) {
             throw new BadParametersException("BAD REQUEST");
