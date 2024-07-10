@@ -51,7 +51,7 @@ public class ResultOrderWithDiscount extends ResultOrder{
                 line.getPrice(), line.getDiscount(), line.getTotalPrice())));
 
         sb.append("\nDISCOUNT CARD;DISCOUNT PERCENTAGE\n")
-                .append(String.format("%d;%d%s\n", discountCard.getNumber(), discountCard.getDiscount_amount(), "%"))
+                .append(String.format("%04d;%d%s\n", discountCard.getNumber(), discountCard.getDiscount_amount(), "%"))
                 .append("\nTOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
                 .append(String.format(Locale.ROOT, "%.2f$;%.2f$;%.2f$",
                         totalLine.getTotalPrice(),

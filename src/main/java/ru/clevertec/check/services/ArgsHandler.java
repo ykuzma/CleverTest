@@ -25,6 +25,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
             }else if(s.matches(DEBIT_CARD_TEMPLATE)){
                 bank++;
             }else {
+                Logger.error("Bad param = " + s);
                 return false;
             }
             if(bank > 1 || discount > 1) return false;
@@ -36,9 +37,13 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
     @Override
     public OrderData parse(String[] args) {
         Logger.info("method  parse start");
-        if(args.length == 0 || !validate(args))
-        { Logger.error(String.format("No find Params, argsSize=%s", args.length));
-            throw new BadParametersException("Bad request");}
+        if(args.length == 0){
+            Logger.error(String.format("No find Params, argsSize=%s", args.length));
+            throw new BadParametersException("BAD REQUEST");
+        }else if(!validate(args)) {
+            throw new BadParametersException("BAD REQUEST");
+        }
+
 
         String[] tempArr;
 

@@ -1,12 +1,14 @@
 package main.java.ru.clevertec.check;
 
-import main.java.ru.clevertec.check.dao.DiscountCardFile;
-import main.java.ru.clevertec.check.dao.ProductDaoFile;
+import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.exception.ExceptionHandler;
 import main.java.ru.clevertec.check.models.OrderData;
 import main.java.ru.clevertec.check.models.ResultHandler;
-import main.java.ru.clevertec.check.services.*;
+import main.java.ru.clevertec.check.services.ArgParser;
+import main.java.ru.clevertec.check.services.ArgsHandler;
+import main.java.ru.clevertec.check.services.ResultOrderService;
+import main.java.ru.clevertec.check.services.ResultOrderServiceFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,22 +18,20 @@ public class CheckRunner {
 
 
         try {
+            Logger.info("Application start");
             ArgParser<OrderData> argParser = new ArgsHandler();
             OrderData orderData = argParser.parse(args);
-
-
-
-            OrderLineServiceImpl orderLineService = new OrderLineServiceImpl(
-                    new ProductServiceImpl(new ProductDaoFile()));
-            DiscountCardServiceImpl discountCardService = new DiscountCardServiceImpl(
-                    new DiscountCardFile());
-            ResultOrderService orderService = new ResultOrderServiceDiscountImpl(orderLineService, discountCardService);
+            ResultOrderService orderService = ResultOrderServiceFactory.getService(orderData);
+            Logger.info(String.format("ResultOrderService = %s", orderService.getClass().getSimpleName()));
             ResultHandler resultOrder = orderService.getResult(orderData);
             resultOrder.save(new FileOutputStream("result.csv"));
             resultOrder.print();
+            Logger.info("Application finish");
         } catch (ApplicationException e) {
-           new ExceptionHandler(e.getMessage()).save(new FileOutputStream("result.csv"));
-
+            ResultHandler resultHandler = new ExceptionHandler(e.getMessage());
+            resultHandler.save(new FileOutputStream("result.csv"));
+            resultHandler.print();
+            e.printStackTrace();
         }
 
 

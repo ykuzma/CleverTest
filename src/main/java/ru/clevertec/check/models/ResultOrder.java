@@ -83,7 +83,7 @@ public class ResultOrder implements ResultHandler{
     }
     @Override
     public void print() {
-        System.out.println(this);
+        System.out.println("\n" + this + "\n");
     }
 
     @Override
