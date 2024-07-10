@@ -5,6 +5,8 @@ import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.OrderData;
 
+import java.util.Arrays;
+
 public class ArgsHandler implements ArgParser<OrderData>, ValidationService<String[]> {
 
     private final String ID_TEMPLATE = "\\d{1,19}-\\d{1,10}";
@@ -31,11 +33,11 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
                 discount++;
             }else if(s.matches(DEBIT_CARD_TEMPLATE)){
                 bank++;
-            } else if (s.matches(PATH_TO_FILE)) {
-                path++;
-
             } else if (s.matches(SAVE_TO_FILE)) {
                 save++;
+
+            } else if (s.matches(PATH_TO_FILE)) {
+                path++;
             } else {
                 Logger.error("Bad param = " + s);
                 return false;
@@ -53,6 +55,8 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
             Logger.error("No find Params");
             throw new BadParametersException("BAD REQUEST");
         }else if(!validate(args)) {
+            Arrays.stream(args).filter(s -> s.matches(SAVE_TO_FILE))
+                    .forEach(s -> ConfigurationApp.getInstance().setSaveTo(s.split("=")[1]));
             throw new BadParametersException("BAD REQUEST");
         }
 
