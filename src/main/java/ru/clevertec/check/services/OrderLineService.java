@@ -18,7 +18,7 @@ public class OrderLineService {
     }
 
     public List<OrderLine> createOrderLines (Map<Long,
-            Integer> productIdAndQuantity, int discount) throws FileNotFoundException {
+            Integer> productIdAndQuantity, int discount)  {
         Set<Product> products = productService.findProducts(productIdAndQuantity.keySet());
 
         return products.stream()

@@ -14,7 +14,7 @@ public class ProductService {
         this.productDao = productDao;
     }
 
-    public Set<Product> findProducts(Set<Long> productID) throws FileNotFoundException {
+    public Set<Product> findProducts(Set<Long> productID) {
 
         try {
             return productDao.findProducts(productID);

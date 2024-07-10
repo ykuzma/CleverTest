@@ -4,18 +4,18 @@ import main.java.ru.clevertec.check.models.ResultHandler;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
 
 public class ExceptionHandler implements ResultHandler {
 
     private final String exceptionMessage;
+    private final String DEFAULT_MESSAGE = "INTERNAL SERVER ERROR";
 
     public ExceptionHandler(String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
     }
 
     public String getExceptionMessage() {
-        return exceptionMessage;
+        return exceptionMessage == null ? DEFAULT_MESSAGE : exceptionMessage;
     }
 
     @Override
