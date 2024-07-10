@@ -2,6 +2,7 @@ package main.java.ru.clevertec.check;
 
 import main.java.ru.clevertec.check.dao.DiscountCardFile;
 import main.java.ru.clevertec.check.dao.ProductDaoFile;
+import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.models.OrderData;
 import main.java.ru.clevertec.check.models.ResultOrder;
 import main.java.ru.clevertec.check.services.*;
@@ -23,8 +24,8 @@ public class CheckRunner {
             ResultOrder resultOrder = orderService.getResult(orderData);
             resultOrder.save(new FileOutputStream("result.csv"));
             resultOrder.print();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (ApplicationException e) {
+
         }
 
 

@@ -9,12 +9,15 @@ public class OrderLine {
     private double totalPrice;
     private double discount;
 
+    private double totalWithDiscount;
+
     public OrderLine(int qty, String productDescription, double price, double totalPrice, double discount) {
         this.qty = qty;
         this.productDescription = productDescription;
         this.price = price;
         this.totalPrice = totalPrice;
         this.discount = discount;
+        totalWithDiscount  = totalPrice - discount;
     }
 
     public int getQty() {
@@ -35,6 +38,10 @@ public class OrderLine {
 
     public double getDiscount() {
         return discount;
+    }
+
+    public double getTotalWithDiscount() {
+        return totalWithDiscount;
     }
 
     @Override
