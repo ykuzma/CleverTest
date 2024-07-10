@@ -4,7 +4,6 @@ import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.NotEnoughMoneyException;
 import main.java.ru.clevertec.check.models.*;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ResultOrderServiceImplBase implements ResultOrderService{

@@ -7,6 +7,7 @@ import main.java.ru.clevertec.check.models.Product;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class ProductDaoFile implements ProductDao{
     private String[] tempArr;
 
     @Override
-    public Set<Product> findProducts(Set<Long> setID) {
+    public List<Product> findProducts(Set<Long> setID) {
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(config.getPathProduct())))) {
@@ -24,7 +25,7 @@ public class ProductDaoFile implements ProductDao{
             return br.lines().skip(1)
                     .filter(line -> setID.contains(findIdInLine(line)))
                     .map(this::createProduct)
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.toList());
         }catch (Exception e) {
             throw new ApplicationException();
         }

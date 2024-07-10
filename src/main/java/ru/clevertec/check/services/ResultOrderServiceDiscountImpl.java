@@ -9,7 +9,7 @@ import java.util.List;
 public class ResultOrderServiceDiscountImpl extends ResultOrderServiceImplBase{
     private final DiscountCardService discountCardService;
 
-    public ResultOrderServiceDiscountImpl(OrderLineService orderLine, DiscountCardService discountCardService) {
+    public ResultOrderServiceDiscountImpl(OrderLineServiceImpl orderLine, DiscountCardService discountCardService) {
         super(orderLine);
         this.discountCardService = discountCardService;
     }

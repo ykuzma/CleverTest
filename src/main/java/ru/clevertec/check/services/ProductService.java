@@ -5,6 +5,7 @@ import main.java.ru.clevertec.check.models.Product;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 public class ProductService {
@@ -14,7 +15,7 @@ public class ProductService {
         this.productDao = productDao;
     }
 
-    public Set<Product> findProducts(Set<Long> productID) {
+    public List<Product> findProducts(Set<Long> productID) {
 
         try {
             return productDao.findProducts(productID);
