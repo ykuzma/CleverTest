@@ -4,7 +4,7 @@ out
 .gradle
 *.class
 
-./*.txt
+clevertec-check.jar.jar
 result.csv
 # Ignore Gradle build output directory
 build

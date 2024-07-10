@@ -1,17 +1,33 @@
 plugins {
     id 'java'
+    id 'idea'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+def mainClassName = 'main.java.ru.clevertec.check.CheckRunner'
+ group 'org.example'
+
 
 repositories {
     mavenCentral()
 }
+jar {
+    archivesBaseName = 'clevertec-check'
+    getDestinationDirectory().set(file("$rootDir"))
+    manifest {
+        attributes 'Main-Class': 'main.java.ru.clevertec.check.CheckRunner'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 
 dependencies {
 
+
+// https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation 'org.postgresql:postgresql:42.7.3'
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

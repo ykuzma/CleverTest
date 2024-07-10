@@ -1,6 +1,11 @@
 package main.java.ru.clevertec.check.configuration;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class ConfigurationApp {
+    private Connection connection;
     private int wholesale = 10;
     private String pathProduct = "./src/main/resources/products.csv";
     private String pathDiscountCard = "./src/main/resources/discountCards.csv";
@@ -14,6 +19,20 @@ public class ConfigurationApp {
             configurationApp = new ConfigurationApp();
         }
         return configurationApp;
+    }
+
+    private static Connection getConnection() {
+        try {
+            String url = "jdbc:postgresql://localhost:5432/check";
+            String name = "postgres";
+            String pass = "penelopacristal";
+
+
+            return DriverManager.getConnection(url, name, pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setPathProduct(String pathProduct) {
@@ -40,7 +59,9 @@ public class ConfigurationApp {
         return saveTo;
     }
 
-    private ConfigurationApp(){}
+    private ConfigurationApp(){
+      connection = getConnection();
+    }
 
     public  int getWholesale() {
         return wholesale;
