@@ -3,7 +3,6 @@ package main.java.ru.clevertec.check.services;
 import main.java.ru.clevertec.check.configuration.Logger;
 import main.java.ru.clevertec.check.exception.BadParametersException;
 import main.java.ru.clevertec.check.models.OrderData;
-import main.java.ru.clevertec.check.models.OrderDataBuilder;
 
 public class ArgsHandler implements ArgParser<OrderData>, ValidationService<String[]> {
 
@@ -43,7 +42,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
         String[] tempArr;
 
-        OrderDataBuilder builder = new OrderDataBuilder();
+        OrderData.OrderDataBuilder builder = new OrderData.OrderDataBuilder();
         for (String arg : args) {
 
             if(arg.matches(ID_TEMPLATE)) {

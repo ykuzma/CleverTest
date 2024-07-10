@@ -26,7 +26,7 @@ public class ResultOrderServiceDiscountImpl extends ResultOrderServiceImplBase{
             throw new NotEnoughMoneyException("Not enough money");
         }
 
-        return new ResultOrderWithDiscountBuilder()
+        return new ResultOrderWithDiscount.Builder()
                 .setLine(lineList)
                 .setDiscountCard(discountCard)
                 .build();

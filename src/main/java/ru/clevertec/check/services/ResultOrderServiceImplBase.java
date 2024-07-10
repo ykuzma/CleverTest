@@ -24,7 +24,7 @@ public class ResultOrderServiceImplBase implements ResultOrderService{
             throw new NotEnoughMoneyException("Not enough money");
         }
 
-        return new ResultOrderBuilder()
+        return new ResultOrder.Builder()
                 .setLine(lineList)
                 .build();
 

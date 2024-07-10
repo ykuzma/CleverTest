@@ -1,20 +1,20 @@
 package main.java.ru.clevertec.check.models;
 
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ResultOrder implements ResultHandler{
 
-    private final LocalDate date;
-    private final LocalTime time;
-    private final List<OrderLine> lines;
-    private final TotalLine totalLine;
+    protected final LocalDate date;
+    protected final LocalTime time;
+    protected final List<OrderLine> lines;
+    protected final TotalLine totalLine;
 
     public ResultOrder(LocalDate date, LocalTime time, List<OrderLine> lines, TotalLine totalLine) {
         this.date = date;
@@ -66,15 +66,13 @@ public class ResultOrder implements ResultHandler{
                 .append("QTY;DESCRIPTION;PRICE;DISCOUNT;TOTAL").append("\n");
 
         lines.forEach((line) ->{
-            sb.append(String.format("%d;%s;%.2f$;%.2f$;%.2f$\n",
+            sb.append(String.format(Locale.ROOT,"%d;%s;%.2f$;%.2f$;%.2f$\n",
                     line.getQty(), line.getProductDescription(),
                     line.getPrice(), line.getDiscount(), line.getTotalPrice()));
         });
 
-        sb.append("\nDISCOUNT CARD;DISCOUNT PERCENTAGE\n")
-                .append(String.format("%d;%d%s\n", 1111, 2, "%"))
-                .append("\nTOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
-                .append(String.format("%.2f$;%.2f$;%.2f$",
+        sb.append("\nTOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
+                .append(String.format(Locale.ROOT, "%.2f$;%.2f$;%.2f$",
                         totalLine.getTotalPrice(),
                         totalLine.getTotalDiscount(),
                         totalLine.getTotalWithDiscount()));
@@ -83,8 +81,6 @@ public class ResultOrder implements ResultHandler{
 
         return sb.toString();
     }
-
-
     @Override
     public void print() {
         System.out.println(this);
@@ -145,7 +141,34 @@ public class ResultOrder implements ResultHandler{
                     ", totalWithDiscount=" + totalWithDiscount +
                     '}';
         }
+    }
+
+    public static class Builder {
+        private  List<OrderLine> lines;
+
+        public ResultOrder build(){
+            return new ResultOrder(LocalDate.now(), LocalTime.now(), getLines(), createTotalLine());
+        }
 
 
+        protected TotalLine createTotalLine() {
+            double totalPrice = 0;
+            double totalDiscount = 0;
+            for (OrderLine line:lines) {
+                totalDiscount += line.getDiscount();
+                totalPrice += line.getTotalPrice();
+            }
+            double totalWithDiscount = totalPrice - totalDiscount;
+            return new TotalLine(totalPrice, totalDiscount, totalWithDiscount);
+        }
+
+        public Builder setLine(List<OrderLine> lines) {
+            this.lines = lines;
+            return this;
+        }
+
+        public List<OrderLine> getLines() {
+            return lines;
+        }
     }
 }

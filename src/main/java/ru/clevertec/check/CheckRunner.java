@@ -5,7 +5,7 @@ import main.java.ru.clevertec.check.dao.ProductDaoFile;
 import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.exception.ExceptionHandler;
 import main.java.ru.clevertec.check.models.OrderData;
-import main.java.ru.clevertec.check.models.ResultOrder;
+import main.java.ru.clevertec.check.models.ResultHandler;
 import main.java.ru.clevertec.check.services.*;
 
 import java.io.FileNotFoundException;
@@ -21,10 +21,12 @@ public class CheckRunner {
 
 
 
-            OrderLineServiceImpl orderLineService = new OrderLineServiceImpl(new ProductServiceImpl(new ProductDaoFile()));
-            DiscountCardServiceImpl discountCardService = new DiscountCardServiceImpl(new DiscountCardFile());
-            ResultOrderServiceImplBase orderService = new ResultOrderServiceImplBase(orderLineService, discountCardService);
-            ResultOrder resultOrder = orderService.getResult(orderData);
+            OrderLineServiceImpl orderLineService = new OrderLineServiceImpl(
+                    new ProductServiceImpl(new ProductDaoFile()));
+            DiscountCardServiceImpl discountCardService = new DiscountCardServiceImpl(
+                    new DiscountCardFile());
+            ResultOrderService orderService = new ResultOrderServiceDiscountImpl(orderLineService, discountCardService);
+            ResultHandler resultOrder = orderService.getResult(orderData);
             resultOrder.save(new FileOutputStream("result.csv"));
             resultOrder.print();
         } catch (ApplicationException e) {
