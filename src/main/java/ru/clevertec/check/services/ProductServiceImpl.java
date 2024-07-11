@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findProducts(Set<Long> productID) {
         try {
             return productDao.findProducts(productID);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new ApplicationException();
         }
 
