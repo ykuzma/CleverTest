@@ -1,6 +1,7 @@
 package main.java.ru.clevertec.check.services;
 
 import main.java.ru.clevertec.check.configuration.ConfigurationApp;
+import main.java.ru.clevertec.check.exception.ApplicationException;
 import main.java.ru.clevertec.check.models.OrderLine;
 import main.java.ru.clevertec.check.models.Product;
 
@@ -18,11 +19,15 @@ public class OrderLineServiceImpl implements OrderLineService {
     @Override
     public List<OrderLine> createOrderLines(Map<Long,
             Integer> productIdAndQuantity, int discount)  {
-        List<Product> products = productService.findProducts(productIdAndQuantity.keySet());
+        try {
+            List<Product> products = productService.findProducts(productIdAndQuantity.keySet());
 
-        return products.stream()
-                .map(p -> createOrderLine(p, discount, productIdAndQuantity.get(p.getId())))
-                .collect(Collectors.toList());
+            return products.stream()
+                    .map(p -> createOrderLine(p, discount, productIdAndQuantity.get(p.getId())))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ApplicationException();
+        }
     }
 
 

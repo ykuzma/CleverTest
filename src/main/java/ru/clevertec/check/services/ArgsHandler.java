@@ -13,6 +13,10 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
     @Override
     public boolean validate(String[] params) {
+        if(params.length == 0){
+            Logger.error("No find Params");
+            throw new BadParametersException("BAD REQUEST");
+        }
         int bank = 0;
         int discount = 0;
         int id = 0;
@@ -36,14 +40,10 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
 
     @Override
     public OrderData parse(String[] args) {
-        Logger.info("method  parse start");
-        if(args.length == 0){
-            Logger.error(String.format("No find Params, argsSize=%s", args.length));
-            throw new BadParametersException("BAD REQUEST");
-        }else if(!validate(args)) {
+        Logger.info("Method  parse start");
+        if(!validate(args)) {
             throw new BadParametersException("BAD REQUEST");
         }
-
 
         String[] tempArr;
 
@@ -64,7 +64,7 @@ public class ArgsHandler implements ArgParser<OrderData>, ValidationService<Stri
                 builder.setDiscountCardNumber(Integer.parseInt(tempArr[1]));
             }
         }
-        Logger.info("validate finish successful");
+        Logger.info("Validate finish successful");
         return builder.build();
     }
 }

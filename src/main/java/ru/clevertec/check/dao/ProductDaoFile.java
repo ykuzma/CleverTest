@@ -20,7 +20,11 @@ public class ProductDaoFile implements ProductDao{
 
     @Override
     public List<Product> findProducts(Set<Long> setID) {
-        return setID.stream().map(this::findProductById).collect(Collectors.toList());
+        try {
+            return setID.stream().map(this::findProductById).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ApplicationException();
+        }
     }
 
     private long findIdInLine(String line){

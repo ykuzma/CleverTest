@@ -7,8 +7,8 @@ public class ConfigurationApp {
     private String pathProduct = "./src/main/resources/products.csv";
     private String pathDiscountCard = "./src/main/resources/discountCards.csv";
     private String delimiter = ";";
-    private String savoTo = "./result.csv";
-    private static int wholesale = 10;
+    private String saveTo = "./result.csv";
+    private int wholesale = 10;
 
     private static ConfigurationApp configurationApp;
 
@@ -32,15 +32,19 @@ public class ConfigurationApp {
         this.delimiter = delimiter;
     }
 
-    public void setSavoTo(String savoTo) {
-        this.savoTo = savoTo;
+    public void setSaveTo(String saveTo) {
+        this.saveTo = saveTo;
     }
 
-    public static void setWholesale(int wholesale) {
-        ConfigurationApp.wholesale = wholesale;
+    public void setWholesale(int wholesale) {
+        this.wholesale = wholesale;
     }
 
     private ConfigurationApp(){}
+
+    public String getSaveTo() {
+        return saveTo;
+    }
 
     public int getWholesale() {
         return wholesale;

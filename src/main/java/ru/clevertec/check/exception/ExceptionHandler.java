@@ -25,6 +25,7 @@ public class ExceptionHandler implements ResultHandler {
 
     @Override
     public void save(OutputStream ous) {
+        print();
         PrintWriter writer = new PrintWriter(ous);
         writer.print(this);
         writer.flush();
