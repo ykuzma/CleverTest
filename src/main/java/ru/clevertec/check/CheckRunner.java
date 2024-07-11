@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 public class CheckRunner {
     public static void main(String[] args) throws FileNotFoundException, SQLException {
+
         Logger.info("Application start");
         ConfigurationApp config = ConfigurationApp.getInstance();
 
@@ -24,15 +25,12 @@ public class CheckRunner {
             ArgParser<OrderData> argParser = new ArgsHandler();
             OrderData orderData = argParser.parse(args);
             ResultOrderService orderService = ResultOrderServiceFactory.getService(orderData);
-            Logger.info(String.format("ResultOrderService = %s", orderService.getClass().getSimpleName()));
             ResultHandler resultHandler = orderService.getResult(orderData);
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
-            resultHandler.print();
 
         } catch (ApplicationException e) {
             ResultHandler resultHandler = new ExceptionHandler(e.getMessage());
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
-            resultHandler.print();
             e.printStackTrace();
         }finally {
             ConfigurationApp.getInstance().getConnection().close();

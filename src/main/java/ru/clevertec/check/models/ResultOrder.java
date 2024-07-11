@@ -88,7 +88,7 @@ public class ResultOrder implements ResultHandler{
 
     @Override
     public void save(OutputStream fos) {
-
+      print();
       PrintWriter pr = new PrintWriter(fos);
       pr.print(this);
       pr.flush();
