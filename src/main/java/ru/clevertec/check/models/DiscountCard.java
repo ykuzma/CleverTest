@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class DiscountCard {
     private long id;
-    private final int number;
+    private int number;
     private int discount_amount = 2;
 
 
+    public DiscountCard() {
+    }
 
     public DiscountCard(long id, int number, int discount_amount) {
         this.id = id;
@@ -33,6 +35,14 @@ public class DiscountCard {
 
     public void setDiscount_amount(int discount_amount) {
         this.discount_amount = discount_amount;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override

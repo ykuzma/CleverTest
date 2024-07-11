@@ -26,7 +26,7 @@ public class ConfigurationApp {
         return configurationApp;
     }
 
-    private static Connection getConnection() {
+    private static Connection createConnection() {
         try {
             String url = "jdbc:postgresql://localhost:5432/check";
             String name = "postgres";
@@ -84,12 +84,16 @@ public class ConfigurationApp {
         return dsUsername;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     public String getSaveTo() {
         return saveTo;
     }
 
     private ConfigurationApp(){
-      connection = getConnection();
+      connection = createConnection();
     }
 
     public  int getWholesale() {

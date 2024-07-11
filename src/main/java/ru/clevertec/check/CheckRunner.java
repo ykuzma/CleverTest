@@ -13,9 +13,10 @@ import main.java.ru.clevertec.check.services.ResultOrderServiceFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 
 public class CheckRunner {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, SQLException {
         Logger.info("Application start");
         ConfigurationApp config = ConfigurationApp.getInstance();
 
@@ -27,12 +28,15 @@ public class CheckRunner {
             ResultHandler resultHandler = orderService.getResult(orderData);
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
             resultHandler.print();
-            Logger.info("Application finish");
+
         } catch (ApplicationException e) {
             ResultHandler resultHandler = new ExceptionHandler(e.getMessage());
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
             resultHandler.print();
             e.printStackTrace();
+        }finally {
+            ConfigurationApp.getInstance().getConnection().close();
+            Logger.info("Application finish");
         }
 
 
