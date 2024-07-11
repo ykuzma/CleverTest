@@ -23,15 +23,15 @@ public class CheckRunner {
             ArgParser<OrderData> argParser = new ArgsHandler();
             OrderData orderData = argParser.parse(args);
             ResultOrderService orderService = ResultOrderServiceFactory.getService(orderData);
-            Logger.info(String.format("ResultOrderService = %s", orderService.getClass().getSimpleName()));
+
             ResultHandler resultHandler = orderService.getResult(orderData);
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
-            resultHandler.print();
+
             Logger.info("Application finish");
         } catch (ApplicationException e) {
             ResultHandler resultHandler = new ExceptionHandler(e.getMessage());
             resultHandler.save(new FileOutputStream(config.getSaveTo()));
-            resultHandler.print();
+
             e.printStackTrace();
         }
 

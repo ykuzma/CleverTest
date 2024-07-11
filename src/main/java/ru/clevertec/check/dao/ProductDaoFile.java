@@ -31,7 +31,7 @@ public class ProductDaoFile implements ProductDao{
 
     private Product createProduct(String line) {
         String[]tempArr =  line.split(config.getDelimiter());
-        boolean wholesale = tempArr[4].equals("+");
+        boolean wholesale = tempArr[4].equals("true");
         Product product = new Product();
         product.setId(Long.parseLong(tempArr[0]));
         product.setDescription(tempArr[1]);
@@ -53,7 +53,7 @@ public class ProductDaoFile implements ProductDao{
 
             return product.orElseThrow(() -> new BadParametersException("BAD REQUEST"));
         }catch (IOException e) {
-            Logger.error(String.format("IOException - class = %s", e.getClass().getSimpleName()));
+
             throw new ApplicationException();
         }
 
