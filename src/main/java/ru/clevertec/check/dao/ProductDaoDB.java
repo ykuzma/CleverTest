@@ -16,7 +16,6 @@ public class ProductDaoDB implements ProductDao{
         executor = new Executor(connection);
     }
 
-
     @Override
     public Product findProductById(Long id) {
         try {
@@ -28,8 +27,10 @@ public class ProductDaoDB implements ProductDao{
                 product.setPrice(result.getDouble(3));
                 product.setQuantity(result.getInt(4));
                 product.setWholesale(result.getBoolean(5));
+
                 return product;
             });
+
         } catch (SQLException e) {
             throw new ApplicationException();
         }

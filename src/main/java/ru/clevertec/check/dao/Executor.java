@@ -1,5 +1,7 @@
 package main.java.ru.clevertec.check.dao;
 
+import main.java.ru.clevertec.check.configuration.Logger;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +27,6 @@ public class Executor {
         T value = handler.handle(result);
         result.close();
         stmt.close();
-
         return value;
     }
 

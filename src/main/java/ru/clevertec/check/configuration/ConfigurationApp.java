@@ -22,18 +22,15 @@ public class ConfigurationApp {
     public static ConfigurationApp getInstance() {
         if(configurationApp == null) {
             configurationApp = new ConfigurationApp();
+            Logger.info("Configuration create.");
         }
         return configurationApp;
     }
 
-    private static Connection createConnection() {
+    private Connection createConnection() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/check";
-            String name = "postgres";
-            String pass = "penelopacristal";
 
-
-            return DriverManager.getConnection(url, name, pass);
+            return DriverManager.getConnection(dsURL, dsUsername, dsPassword);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +82,9 @@ public class ConfigurationApp {
     }
 
     public Connection getConnection() {
+        if(connection == null) {
+           connection = createConnection();
+        }
         return connection;
     }
 
@@ -92,9 +92,7 @@ public class ConfigurationApp {
         return saveTo;
     }
 
-    private ConfigurationApp(){
-      connection = createConnection();
-    }
+    private ConfigurationApp(){ }
 
     public  int getWholesale() {
         return wholesale;
