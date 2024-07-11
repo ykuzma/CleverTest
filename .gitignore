@@ -8,3 +8,5 @@ clevertec-check.jar
 result.csv
 # Ignore Gradle build output directory
 build
+CleverTest.ipr
+CleverTest.iws
